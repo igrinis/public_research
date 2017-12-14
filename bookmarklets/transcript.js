@@ -7,7 +7,7 @@
 // @match        https://app.gong.io/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
-// @downloadURL http://public_research.honeyfy.github.com/transcript.js
+// @downloadURL https://honeyfy.github.io/public_research/bookmarklets/transcript.js
 // ==/UserScript==
 
 

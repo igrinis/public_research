@@ -1,0 +1,15 @@
+._*
+.idea
+.DS_Store
+__pycache__/
+benchmark.pyc
+.ipynb_checkpoints/
+train.log.txt
+confusion.npy
+*.pyc
+cached_vectors
+same_slide/tmp
+same_slide/same_slide_classifications.pkl
+same_slide/tmp_X_Y.npy
+same_slide/outputs/same_slide.pb
+*_train.log.txt

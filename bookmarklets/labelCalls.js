@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Label calls
 // @namespace    http://gong.io/
-// @version      0.1
+// @version      0.2
 // @description  pophovers on snippets in calls' search for labeling data. Notice for the SAVE button at the top of the page to save your results as a csv file.
 // @author       Golan Levy
 // @match        https://app.gong.io/calls?*
@@ -138,7 +138,7 @@ $(document).ready(function(e) {
 
 
                 ul.click(function(e){
-                    if (e.target.tagName !== 'A') return;
+                    if (e.target.tagName !== 'A') return;					
 
                     $this.popover('hide');
 
@@ -158,6 +158,8 @@ $(document).ready(function(e) {
                     console.log(item);
 
                     updateStorage(item);
+					
+					callSnippet[0].style.color = "lightgrey";
 
                 });
 

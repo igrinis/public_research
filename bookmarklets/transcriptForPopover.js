@@ -82,6 +82,7 @@
 
 
 	$(document).ready(function() {
+		alret("check");
 		add_style('.gong-highlighted { color: blue; }');
 
         if(window.innerWidth < 1000){

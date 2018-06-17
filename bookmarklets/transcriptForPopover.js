@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Transcript for popover
 // @namespace    http://gong.io/
-// @version      0.2
+// @version      0.1
 // @description  highlight + scroll to transcript in popover
 // @author       Golan Levy
 // @match        https://app.gong.io/call/pretty-transcript?*

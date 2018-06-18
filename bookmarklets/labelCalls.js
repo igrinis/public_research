@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Label calls
 // @namespace    http://gong.io/
-// @version      0.2
+// @version      0.3
 // @description  pophovers on snippets in calls' search for labeling data. Notice for the SAVE button at the top of the page to save your results as a csv file.
 // @author       Golan Levy
 // @match        https://app.gong.io/calls?*
@@ -103,6 +103,12 @@ $(document).ready(function(e) {
                 var callDetails = $this.parents(".call-details");
                 var callSnippet = $this;
                 var callID = callDetails.find(".call-link").attr("data-call-id");
+                var snippetText = callSnippet.find(".snippet-content").text();
+
+                // Check that we did not checked this call snippet in another scenario
+                if (data.some(x => x.snippetText == snippetText)){
+                    callSnippet[0].style.color = "lightgrey";
+                }
 
                 var ul = $("<ul></ul>");
 
@@ -151,7 +157,7 @@ $(document).ready(function(e) {
                         'account': callDetails.find(".call-account-name").text(),
                         'snippetStartTime': convertStartTimeToSeconds(callSnippet.find(".snippet-start-time").text()),
                         'speaker': callSnippet.find(".call-fragment-speaker").text(),
-                        'snippetText': callSnippet.find(".snippet-content").text(),
+                        'snippetText': snippetText,
                         'classification' : e.target.text
                     }
 

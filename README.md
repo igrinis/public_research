@@ -8,7 +8,7 @@ Resources used in the Gong research group that can and should be publicly availa
 2. TamperMonkey -> Dashboard -> Utilities
 3. In the URL textbox add the desired sciprt by https://honeyfy.github.io/public_research/bookmarklets/[Script_Name].js
 4. To get the latest updates: TamperMonkey -> Dashboard -> Settings -> Script Update -> Every Day
-5. For manual updates, click on the "Last Update" column in Dashboard/Installed Scripts.
+5. For manual updates, click on the "Last Update" column in Dashboard/Installed Scripts OR TamperMonkey extension icon -> Check for user script updates
 
 ## Without TamperMonkey
 1. Go to public_research/bookmarklets.

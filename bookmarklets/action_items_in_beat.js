@@ -4,7 +4,7 @@
 // @version      0.2
 // @description  a bookmarklet to view the action items found in a call, as recorded in the given CSV
 // @author       Jason Scot
-// @match        https://app.gong.io/account?company-id=*
+// @match        https://app.gong.io/account*
 // @grant        none
 // @downloadURL https://honeyfy.github.io/public_research/bookmarklets/action_items_in_beat.js
 // ==/UserScript==
@@ -79,14 +79,14 @@ function transcriptSearch() {
         selector = selector[i-2];
         selector.scrollIntoView(true);
         document.documentElement.scrollTop = view;
-        $("#" + modal_id).contents().scrollTop( $("#" + modal_id).contents().scrollTop() - 75 );
+        $("#" + modal_id).contents().scrollTop( $("#" + modal_id).contents().scrollTop() - 90 );
         document.documentElement.scrollTop = view;
 
         if ($("#" + modal_id).contents().text().search(e_transcript) != -1) {
             content = content.replace(e_transcript, "<mark>" + e_transcript + "</mark>");
         } else {
             console.log("Impossible to highlight transcript number " + j);
-            // TODO: add the gong-highlighted class onto the entire transcript section
+            // TODO: add the gong-highlighted class onto the entire transcript section?
         }
         iframe.contentWindow.document.body.innerHTML = content;
     }
@@ -110,7 +110,7 @@ $(document).on("click", ".modal-button", function() {
 });
 
 $("#action_items_bookmarklet_wrapper").remove();
-$("#account").append('<div id="action_items_bookmarklet_wrapper"> <style> .bookmarklet-wrapper { position: fixed; bottom: 65px; right: 20px; background-color: #3D4A55; border-radius: 4px; padding: 10px; font-weight: bold; color: #fff } .center { display: block; margin-left: auto; margin-right: auto; } .bookmarklet-input { border: none; font-weight: normal; width: 85%; border-radius: 4px; padding: 4px; background-color: #fff; color: #666666; overflow: hidden; } .bookmarklet-input:hover { background-color: #FE0B2F; color: #fff; cursor: pointer; } .bookmarklet-input-label { display: block; } .bookmarklet-button { background-color: #0084ff; border: none; border-radius: 5px; padding: 8px 14px; font-size: 15px; color: #fff; display: block; } .modal-holder { margin-top: 5px; width: 75%; padding: 0px; } @media screen and (max-width: 1400px) { .modal-holder { width: 100%; } } .modal-button{ cursor: pointer; font-color: #6F6F6F; width: 100% } .active, .modal-button:hover { color: #FB3254; } .modal-body-wrapper { border: 2.5px ridge #272F37; background: white; width: 100%; margin: 0px; padding: 0px; } .modal-body { overflow: auto; border: 0px; height: 400px; width: 95%; padding: 0px; margin: 0px; } .transition { transition: background-color 100ms linear; } .output-text { font-family: "Roboto Slab", Times, serif; } .light { font-weight: lighter; } details summary::-webkit-details-marker { display: none; } .highlighted { background-color:#FFFF00; } .hidden { display: none; } </style> <div id="bookmarklet_wrapper" class="animated slideInRight bookmarklet-wrapper"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css"><p><center>Select a CSV file with action items</center></p> <center> <label id="bookmarklet_input_label" for="bookmarklet_input" class="bookmarklet-input-label"><div class="transition bookmarklet-input"> Choose file from system <input id="bookmarklet_input" type="file" onchange="readFile()" class="hidden"> </label></div> </center></div> <div id="csv_text" class="hidden csv-text">CSV Text Placeholder</div> </div>');
+$("#account").append('<div id="action_items_bookmarklet_wrapper"> <style> .bookmarklet-wrapper { position: fixed; bottom: 65px; right: 20px; background-color: #3D4A55; border-radius: 4px; padding: 10px; font-weight: bold; color: #fff } .center { display: block; margin-left: auto; margin-right: auto; } .bookmarklet-input { border: none; font-weight: normal; width: 85%; border-radius: 4px; padding: 4px; background-color: #fff; color: #666666; overflow: hidden; } .bookmarklet-input:hover { background-color: #FE0B2F; color: #fff; cursor: pointer; } .bookmarklet-input-label { display: block; } .bookmarklet-button { background-color: #0084ff; border: none; border-radius: 5px; padding: 8px 14px; font-size: 15px; color: #fff; display: block; } .modal-holder { margin-top: 5px; width: 75%; padding: 0px; } @media screen and (max-width: 1400px) { .modal-holder { width: 100%; } } .modal-button{ cursor: pointer; font-color: #6F6F6F; width: 100% } .active, .modal-button:hover { color: #FB3254; } .modal-body-wrapper { border: 2.5px ridge #272F37; background: white; width: 100%; padding: 0px; } .modal-body { overflow: auto; border: 0px; height: 400px; width: 99%; padding: 0px; margin-right: 0px; margin-left: auto; } .transition { transition: background-color 100ms linear; } .output-text { font-family: "Roboto Slab", Times, serif; } .light { font-weight: lighter; } details summary::-webkit-details-marker { display: none; } .highlighted { background-color:#FFFF00; } .hidden { display: none; } </style> <div id="bookmarklet_wrapper" class="animated slideInRight bookmarklet-wrapper"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css"><p><center>Select a CSV file with action items</center></p> <center> <label id="bookmarklet_input_label" for="bookmarklet_input" class="bookmarklet-input-label"><div class="transition bookmarklet-input"> Choose file from system <input id="bookmarklet_input" type="file" onchange="readFile()" class="hidden"> </label></div> </center></div> <div id="csv_text" class="hidden csv-text">CSV Text Placeholder</div> </div>');
 
 $(document).on("click", ".account-time-line-inner", function() {
     $("#action_item_output_text").remove();
@@ -121,10 +121,10 @@ $("#accountActivitiesWrap").on("click", ".account-activity-item.activity-type-ca
     $("#action_item_output_text").remove();
     i_list = [];
     try {
-        var call_id = this.id;
+        var call_id = this.id.split('-')[1];
         var output_section = $("<div id='action_item_output_text'></div>");
         $(".activity-expanded-view-panel").append(output_section);
-        for (var i=csv_array.length-1; i>=0; i--) {
+        for (var i = csv_array.length - 1; i >= 0; i--) {
             if (csv_array[i][0] === call_id) {
                 var seconds = csv_array[i][8];
                 var time_holder = new Date(null);
@@ -134,7 +134,7 @@ $("#accountActivitiesWrap").on("click", ".account-activity-item.activity-type-ca
                 var entry = [i, transcript, seconds];
                 i_list.push(entry);
                 transcript = transcript.replace(fragment, '<span class="highlighted">'+fragment+'</span>');
-                var to_append = "<br><br><div><a target='_blank' href='/call?id=" + call_id + "&amp;play=" + seconds + "' class='call-snippet affiliation-company'>Score: " + csv_array[i][5] + "<br><div class='snippet-start-time'><div class='time-value'>" + time_holder.toISOString().substr(11, 8) + "</div></div><div class='snippet-speakers-and-content-wrap'><div class='snippet-content'>Affiliation: " + csv_array[i][6] + "<br>Action Item: " + csv_array[i][13] + "<br>Category: " + csv_array[i][15] + "<br>Fragment: " + fragment + "</div></div></a><br><div id='modal_holder' class='modal-holder'><details><summary class='modal-button'>" + transcript + "<br><i class='light'>Click to expand context</i></summary><ul class='center modal-body-wrapper'><li class='center'><iframe id='modal_body_" + i + "' class='modal-body' src='https://app.gong.io/call/pretty-transcript?call-id=" + call_id + "'></iframe></li></ul></div></div></div>";
+                var to_append = "<br><br><div><a target='_blank' href='/call?id=" + call_id + "&amp;play=" + seconds + "' class='call-snippet affiliation-company'>Score: " + csv_array[i][5] + "<br><div class='snippet-start-time'><div class='time-value'>" + time_holder.toISOString().substr(11, 8) + "</div></div><div class='snippet-speakers-and-content-wrap'><div class='snippet-content'>Affiliation: " + csv_array[i][6] + "<br>Action Item: " + csv_array[i][13] + "<br>Category: " + csv_array[i][15] + "<br>Fragment: " + fragment + "</div></div></a><br><div id='modal_holder' class='modal-holder'><details><summary class='modal-button'>" + transcript + "<br><i class='light'>Click to expand context</i></summary><ul class='modal-body-wrapper'><li class='center'><iframe id='modal_body_" + i + "' class='modal-body' src='https://app.gong.io/call/pretty-transcript?call-id=" + call_id + "'></iframe></li></ul></div></div></div>";
                 setTimeout(output_section.append(to_append), 50);
             }
         }

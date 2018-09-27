@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Call Segments
 // @namespace    http://gong.io/
-// @version      0.1.0
+// @version      0.1.1
 // @description  World domination
 // @author       Omri Allouche
 // @match        https://app.gong.io/call?id=*

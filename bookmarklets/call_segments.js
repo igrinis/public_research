@@ -4,7 +4,7 @@
 // @version      0.1.0
 // @description  World domination
 // @author       Omri Allouche
-// @match        https://app.gong.io/*
+// @match        https://app.gong.io/call?id=*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // @downloadURL https://honeyfy.github.io/public_research/bookmarklets/call_segments.js

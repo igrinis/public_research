@@ -23,14 +23,18 @@
         }
         return selector[i-2];
     }
-
+    
+    var last_elem = 0;
     /* Scroll transcript page to specific time */
     function scroll_to_time(c) {
         //problematic in Iframes
         //find_closest_transcript_time(c).scrollIntoView();
         var elem = find_closest_transcript_time(c);
-        //document.documentElement.scrollTop = elem.offsetParent.offsetTop;
-        iframe.contents()[0].documentElement.scrollTop = elem.offsetParent.offsetTop - 50;
+        if (last_elem != elem) (
+            last_elem = elem;
+            //document.documentElement.scrollTop = elem.offsetParent.offsetTop;
+            iframe.contents()[0].documentElement.scrollTop = elem.offsetParent.offsetTop - 50;
+        )
     }
 
     var sibling = $('.player-controls-wrap');

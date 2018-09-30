@@ -13,15 +13,19 @@
     'use strict';
     var iframe;
 
+    function ts2num(ts) {
+        var num = ts.trimEnd().split(':').reduce((acc,time) => (60 * acc) + +time);
+        return num;
+    }
+
     function find_closest_transcript_time(c) {
-        var lookfor = c.trimEnd().replace(":",".");
+        var lookfor = ts2num(c);
         var selector = iframe.contents().find('.timestamp');
-        var start_time=0;
-        var i;
-        for (i=0; i < selector.length && start_time<=lookfor; i++){
-            start_time = parseFloat(selector[i].innerText.trimEnd().replace(":","."))
+        var i = 0;
+        while (lookfor>ts2num(selector[i].innerText) && i<selector.length) {
+            i++;
         }
-        return selector[i-2];
+        return selector[i-1];
     }
     
     var last_elem = 0;

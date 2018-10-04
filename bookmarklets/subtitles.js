@@ -13,24 +13,32 @@
     'use strict';
     var iframe;
 
-    function find_closest_transcript_time(c) {
-        var lookfor = c.trimEnd().replace(":",".");
-        var selector = iframe.contents().find('.timestamp');
-        var start_time=0;
-        var i;
-        for (i=0; i < selector.length && start_time<=lookfor; i++){
-            start_time = parseFloat(selector[i].innerText.trimEnd().replace(":","."))
-        }
-        return selector[i-2];
+    function ts2num(ts) {
+        var num = ts.trimEnd().split(':').reduce((acc,time) => (60 * acc) + +time);
+        return num;
     }
 
+    function find_closest_transcript_time(c) {
+        var lookfor = ts2num(c);
+        var selector = iframe.contents().find('.timestamp');
+        var i = 0;
+        while (lookfor>ts2num(selector[i].innerText) && i<selector.length) {
+            i++;
+        }
+        return selector[i-1];
+    }
+    
+    var last_elem = 0;
     /* Scroll transcript page to specific time */
     function scroll_to_time(c) {
         //problematic in Iframes
         //find_closest_transcript_time(c).scrollIntoView();
         var elem = find_closest_transcript_time(c);
-        //document.documentElement.scrollTop = elem.offsetParent.offsetTop;
-        iframe.contents()[0].documentElement.scrollTop = elem.offsetParent.offsetTop - 50;
+        if (last_elem != elem) {
+            last_elem = elem;
+            //document.documentElement.scrollTop = elem.offsetParent.offsetTop;
+            iframe.contents()[0].documentElement.scrollTop = elem.offsetParent.offsetTop - 50;
+        }
     }
 
     var sibling = $('.player-controls-wrap');

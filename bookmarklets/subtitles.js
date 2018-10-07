@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subtitiles
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  subtitles for a Gong call
 // @author       Golan Levy
 // @match        https://app.gong.io/call?*

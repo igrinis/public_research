@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Subtitiles
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.2
 // @description  subtitles for a Gong call
 // @author       Golan Levy
-// @match        https://app.gong.io/call*
+// @match        https://app.gong.io/call*?id=*
 // @grant        none
 // @downloadURL https://honeyfy.github.io/public_research/bookmarklets/subtitles.js
 // ==/UserScript==
@@ -68,4 +68,3 @@
         scroll_to_time($(this).text());
     });
 })();
-
